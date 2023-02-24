@@ -3,6 +3,11 @@ import {
 } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
+    :root{
+        --white: #fff;
+        --black: #212529;
+    }
+
     *{
         margin: 0px;
         padding: 0px;
