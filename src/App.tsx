@@ -1,12 +1,17 @@
 import react from 'react';
+import { GlobalStyle } from './global';
+import { Rotas } from './routes';
+
+import {
+  Titulo
+} from './styles';
 
 function App() {
   return (
-    <div>
-      <h1>
-        teste
-      </h1>
-    </div>
+    <>
+      <GlobalStyle />
+      <Rotas />
+    </>
   );
 }
 
