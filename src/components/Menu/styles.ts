@@ -1,8 +1,14 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+
+interface propsNavbar {
+    extendNavbar: boolean
+}
 
 export const NavbarContainer = styled.nav`
     width: 100%;
-    height: 80px;
+    /* height: 80px; */
+    height: ${(props: propsNavbar) => (props.extendNavbar ? '100vh':'80px')};
     background-color: var(--black);
     display: flex;
     flex-direction: column;
@@ -35,7 +41,7 @@ export const NavbarLinkContainer = styled.div`
     align-items: center;
 `
 
-export const NavbarLink = styled.a`
+export const NavbarLink = styled(Link)`
     color: #ccc;
     font-size: large;
     text-decoration: none;
@@ -50,7 +56,7 @@ export const NavbarLink = styled.a`
     }
 `
 
-export const NavbarLinkExtend = styled.a`
+export const NavbarLinkExtend = styled(Link)`
     color: #ccc;
     font-size: large;
     text-decoration: none;
@@ -71,7 +77,7 @@ export const OpenLinkButton = styled.button`
     :hover {
         color: var(--white);
     }
-    @media (max-width: 700px) {
+    @media (min-width: 700px) {
         display: none;
     }
 `
@@ -80,7 +86,7 @@ export const NavbarExtendContainer = styled.div`
     flex-direction: column;
     align-items: center;
 
-    @media (max-width: 700px) {
+    @media (min-width: 700px) {
         display: none;
     }
 `
