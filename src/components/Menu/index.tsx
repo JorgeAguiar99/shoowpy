@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import {
     LeftContainer,
     NavbarContainer,
@@ -23,16 +24,13 @@ export const Menu = () => {
 
     useEffect(() => {
 
-        setMenu([
-            {
-                id: 1,
-                categoria: 'Telefonia'
-            },
-            {
-                id: 2,
-                categoria: 'Eletrodomesticos'
-            },
-        ])
+        axios.get('http://localhost:3001/categorias')
+            .then((response) => {
+                setMenu(response.data)
+            })
+            .catch((erro) => {
+                console.log(erro)
+            })
 
     }, [])
 
@@ -73,7 +71,6 @@ export const Menu = () => {
                         ))
                     }
 
-                    <NavbarLink to='/'>Moveis</NavbarLink>
                 </LeftContainer>
                 <RightContainer>
                     <NavbarLinkExtend to='/' >
@@ -85,9 +82,18 @@ export const Menu = () => {
             {
                 extendNavbar && (
                     <NavbarExtendContainer>
-                        <NavbarLinkExtend to='/'>Home</NavbarLinkExtend>
-                        <NavbarLinkExtend to='/'>Telefonia</NavbarLinkExtend>
-                        <NavbarLinkExtend to='/'>Moveis</NavbarLinkExtend>
+                        {
+                            dataMenu.map((menu) => (
+                                <NavbarLinkExtend
+                                    key={menu.id}
+                                    to='/'
+                                >
+                                    {
+                                        menu.categoria
+                                    }
+                                </NavbarLinkExtend>
+                            ))
+                        }
                     </NavbarExtendContainer>
                 )
             }
