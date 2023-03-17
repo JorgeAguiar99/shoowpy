@@ -61,6 +61,9 @@ export const NavbarLinkExtend = styled(Link)`
     font-size: large;
     text-decoration: none;
     margin: 10px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
 
     :hover {
         color: var(--white);

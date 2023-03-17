@@ -10,6 +10,7 @@ import {
     OpenLinkButton,
     RightContainer
 } from './styles'
+import { FaShoppingCart } from 'react-icons/fa'
 
 // https://github.com/profchines
 
@@ -74,6 +75,7 @@ export const Menu = () => {
                 </LeftContainer>
                 <RightContainer>
                     <NavbarLinkExtend to='/' >
+                        <FaShoppingCart size={30} style={{marginRight: "10px"}} />
                         Carrinho
                     </NavbarLinkExtend>
                 </RightContainer>
