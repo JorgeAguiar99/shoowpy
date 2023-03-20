@@ -1,9 +1,13 @@
 import { Menu } from '../../components/Menu'
 import Card from '../../components/Card'
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Footer from '../../components/Footer'
 
 export const Home = () => {
+
+    useEffect(() => {
+        //axios.get
+    }, [])
 
     return (
         <>
