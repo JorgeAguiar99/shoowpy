@@ -15,7 +15,7 @@ export const Rotas = () => {
                     element={<Home />}
                 />
                 <Route
-                    path='/produto'
+                    path='/produto/:id'
                     element={<Produto />}
                 />
             </Routes>

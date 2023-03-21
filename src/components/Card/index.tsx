@@ -1,21 +1,41 @@
+import { useNavigate } from 'react-router-dom'
 import { Button, CardContainer } from "./styles"
 
 interface interfProps {
-    titulo: string;
+    "id": string,
+    "nome": string,
+    "valor": string,
+    "promo": string,
+    "imagem": string | null,
 }
 
 export const Card = (props: interfProps) => {
+
+    const navigate = useNavigate();
+
+    const caminho = 'https://raw.githubusercontent.com/profchines/imagensProjetoU2/main/'
+
     return (
         <CardContainer>
-            <img src="https://raw.githubusercontent.com/profchines/imagensProjetoU2/main/cozinhap.jpg" />
-            <h3>{props.titulo}</h3>
+            {
+                props.imagem &&
+                <img src={caminho + props.imagem} />
+            }
+            {/* // "cozinhap.jpg" /> */}
+            <h3>{props.nome}</h3>
             <p style={{
                 textDecoration: 'line-through'
-            }}> 300,00</p>
+            }}> {props.valor}</p>
             <strong style={{
                 color: 'red'
-            }}> 200,00</strong>
-            <Button>
+            }}> {props.promo}</strong>
+            <Button
+                onClick={() => {
+                    navigate('/produto/' +
+                        props.id
+                    )
+                }}
+            >
                 <h3 style={{
                     color: "#fff"
                 }}>Detalhes</h3>
