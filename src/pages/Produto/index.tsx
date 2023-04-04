@@ -34,6 +34,54 @@ export const Produto = () => {
             })
     }, [id])
 
+    function onSubmit(e: any) {
+        e.preventDefault();
+
+        if (dataProduto) {
+            let qtd = e.target.quantidade.value
+
+            if (qtd > 0) {
+                let obj = {
+                    ...dataProduto,
+                    quantidade: qtd,
+                    total: Number(dataProduto.promo) * qtd
+                }
+
+                let lsCarrinho = localStorage.getItem('@shoowpy:carrinho')
+
+                let carrinho: any = null
+
+                if (typeof lsCarrinho === 'string') {
+                    carrinho = JSON.parse(lsCarrinho)
+                }
+
+                if (carrinho) {
+                    let igual = false
+
+                    carrinho.forEach((produto: any) => {
+                        if (produto.id === obj.id) {
+                            igual = true
+                        }
+
+                        if (igual) {
+
+                        } else {
+                            carrinho.push(obj)
+                            localStorage.setItem('@shoowpy:carrinho', JSON.stringify(carrinho))
+                        }
+                    })
+
+                } else {
+                    localStorage.setItem('@shoowpy:carrinho', JSON.stringify([obj]))
+                }
+
+                navigate('/carrinho')
+
+            }
+        }
+
+    }
+
     return (
         <>
             <Menu />
@@ -46,51 +94,61 @@ export const Produto = () => {
                 }}
             >
                 <>
-                    <h2>Produto: </h2>
-                    <Row>
-                        <Col4>
-                            <img
-                                style={{
-                                    width: '100%'
-                                }}
-                                src={caminho + dataProduto?.imagemg}
-                            />
-                        </Col4>
-                        <Col6>
-                            <h3>{dataProduto?.nome}</h3>
-                            <p
-                                style={{
-                                    textDecoration: 'line-through'
-                                }}
-                            >
-                                {`R$ ${dataProduto?.valor}`}
-                            </p>
-                            <p
-                                style={{
-                                    fontWeight: 'bold',
-                                    color: 'red'
-                                }}
-                            >
-                                {`R$ ${dataProduto?.promo}`}
-                            </p>
-                            <form action="">
-                                <Input
-                                    type="number"
-                                    name="quantidade"
-                                    defaultValue={1}
-                                    min="1"
-                                    required
-                                />
-                                <Button
-                                    type="submit"
-                                >
-                                    <TextButton>
-                                        Adicionar ao Carrinho
-                                    </TextButton>
-                                </Button>
-                            </form>
-                        </Col6>
-                    </Row>
+
+                    {
+                        dataProduto ?
+                            <>
+                                <h2>Produto: </h2>
+                                <Row>
+                                    <Col4>
+                                        <img
+                                            style={{
+                                                width: '100%'
+                                            }}
+                                            src={caminho + dataProduto?.imagemg}
+                                        />
+                                    </Col4>
+                                    <Col6>
+                                        <h3>{dataProduto?.nome}</h3>
+                                        <p
+                                            style={{
+                                                textDecoration: 'line-through'
+                                            }}
+                                        >
+                                            {`R$ ${dataProduto?.valor}`}
+                                        </p>
+                                        <p
+                                            style={{
+                                                fontWeight: 'bold',
+                                                color: 'red'
+                                            }}
+                                        >
+                                            {`R$ ${dataProduto?.promo}`}
+                                        </p>
+                                        <form
+                                            onSubmit={onSubmit}
+                                        >
+                                            <Input
+                                                type="number"
+                                                name="quantidade"
+                                                defaultValue={1}
+                                                min="1"
+                                                required
+                                            />
+                                            <Button
+                                                type="submit"
+                                            >
+                                                <TextButton>
+                                                    Adicionar ao Carrinho
+                                                </TextButton>
+                                            </Button>
+                                        </form>
+                                    </Col6>
+                                </Row>
+                            </>
+                            :
+                            <h1>Produto não encontrado</h1>
+                    }
                 </>
             </div>
         </>

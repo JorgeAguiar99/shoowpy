@@ -35,7 +35,9 @@ export const Home = () => {
             <div
                 style={{
                     paddingLeft: '6%',
-                    paddingRight: '6%'
+                    paddingRight: '6%',
+                    marginTop: 20,
+                    marginBottom: 40
                 }}
             >
                 <h2>Produtos em destaque</h2>

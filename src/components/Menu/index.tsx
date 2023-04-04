@@ -73,7 +73,7 @@ export const Menu = () => {
 
                 </LeftContainer>
                 <RightContainer>
-                    <NavbarLinkExtend to='/' >
+                    <NavbarLinkExtend to='/carrinho' >
                         Carrinho
                     </NavbarLinkExtend>
                 </RightContainer>
