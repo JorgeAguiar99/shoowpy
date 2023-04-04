@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom'
 import { Home } from './pages/Home'
 import { Produto } from './pages/Produto'
+import { Carrinho } from './pages/Carrinho'
 
 export const Rotas = () => {
     return (
@@ -17,6 +18,10 @@ export const Rotas = () => {
                 <Route
                     path='/produto/:id'
                     element={<Produto />}
+                />
+                <Route
+                    path='/carrinho'
+                    element={<Carrinho />}
                 />
             </Routes>
         </BrowserRouter>
