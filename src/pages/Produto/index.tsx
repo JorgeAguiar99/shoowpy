@@ -62,7 +62,7 @@ export const Produto = () => {
                     let igual = false
 
                     carrinho.forEach((prodt: any) => {
-                        if (prodt.id === obj.id ) {
+                        if (prodt.id === obj.id) {
                             igual = true
                         }
                     })
@@ -70,6 +70,18 @@ export const Produto = () => {
                     if (igual) {
 
                         //soma caso for mesmo produto
+                        carrinho.forEach((prodt: any) => {
+                            if (prodt.id === obj.id) {
+                                prodt.quantidade = Number(prodt.quantidade) + Number(obj.quantidade)
+                                prodt.total = Number(prodt.total) + Number(obj.total)
+                            }
+                        })
+
+                        localStorage.setItem(
+                            '@shoowpy:carrinho',
+                            JSON.stringify(carrinho)
+                        )
+
 
                     } else {
                         //diferente
@@ -97,6 +109,13 @@ export const Produto = () => {
             }
         }
 
+    }
+
+    function formataPreco(preco: number) {
+        return preco.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+        });
     }
 
     return (
@@ -135,7 +154,7 @@ export const Produto = () => {
                                             textDecoration: 'line-through'
                                         }}
                                     >
-                                        {`R$` + dataProduto?.valor}
+                                        {formataPreco(Number(dataProduto?.valor))}
                                     </p>
                                     <p
                                         style={{
@@ -143,7 +162,7 @@ export const Produto = () => {
                                             color: 'red'
                                         }}
                                     >
-                                        {`R$` + dataProduto?.promo}
+                                        {formataPreco(Number(dataProduto?.promo))}
                                     </p>
                                     <form
                                         onSubmit={onSubmit}

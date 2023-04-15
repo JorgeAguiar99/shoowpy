@@ -9,6 +9,13 @@ interface interfProps {
     "imagem": string | null,
 }
 
+function formataPreco(preco: number) {
+    return preco.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    });
+}
+
 export const Card = (props: interfProps) => {
 
     const navigate = useNavigate();
@@ -25,10 +32,10 @@ export const Card = (props: interfProps) => {
             <h3>{props.nome}</h3>
             <p style={{
                 textDecoration: 'line-through'
-            }}> {props.valor}</p>
+            }}> {formataPreco(Number(props.valor))}</p>
             <strong style={{
                 color: 'red'
-            }}> {props.promo}</strong>
+            }}> {formataPreco(Number(props.promo))}</strong>
             <Button
                 onClick={() => {
                     navigate('/produto/' +

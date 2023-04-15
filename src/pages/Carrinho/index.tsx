@@ -23,28 +23,14 @@ export const Carrinho = () => {
 
     const atualizaValorTotal = useCallback(
         (carrinho: Array<interfProdutos>) => {
-        let total = 0
+            let total = 0
 
-        carrinho.forEach((produto) => {
-            total = produto.total + total
-        })
-        setValorTotal(total)
+            carrinho.forEach((produto) => {
+                total = produto.total + total
+            })
+            setValorTotal(total)
 
-    },[])
-    // function atualizaValorTotal(
-    //     carrinho: Array<interfProdutos>
-    // ) {
-    //     let total = 0
-
-
-    //     carrinho.forEach((produto) => {
-    //         total = produto.total + total
-    //     })
-    //     setValorTotal(total)
-
-    //     console.log(valorTotal)
-
-    // }
+        }, [])
 
     useEffect(() => {
         let lsCarrinho = localStorage.getItem(
@@ -61,7 +47,13 @@ export const Carrinho = () => {
             atualizaValorTotal(carrinho)
         }
 
-    }, [])
+    }, [dataCarrinho, atualizaValorTotal])
+
+    function limparCarrinho() {
+        localStorage.removeItem('@shoowpy:carrinho')
+        setDataCarrinho([])
+        setValorTotal(0)
+    }
 
     function removerProdutoCarrinho(id: string) {
         let carrinho = dataCarrinho.filter((produto) => (
@@ -75,6 +67,13 @@ export const Carrinho = () => {
 
         setDataCarrinho(carrinho)
         atualizaValorTotal(carrinho)
+    }
+
+    function formataPreco(preco: number) {
+        return preco.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+        });
     }
 
     return (
@@ -112,8 +111,8 @@ export const Carrinho = () => {
                                     <TBTr key={produto.id}>
                                         <Td width={300}>{produto.nome}</Td>
                                         <Td>{produto.quantidade}</Td>
-                                        <Td>{produto.promo}</Td>
-                                        <Td>{produto.total}</Td>
+                                        <Td>{formataPreco(Number(produto.promo))}</Td>
+                                        <Td>{formataPreco(Number(produto.total))}</Td>
                                         <Td>
                                             <Button
                                                 type='button'
@@ -137,7 +136,7 @@ export const Carrinho = () => {
                             <Td width={300}>Valor Total</Td>
                             <Td></Td>
                             <Td></Td>
-                            <Td>{valorTotal}</Td>
+                            <Td>{formataPreco(Number(valorTotal))}</Td>
                             <Td></Td>
                         </TBTr>
                     </tfoot>
@@ -154,7 +153,7 @@ export const Carrinho = () => {
                         <Button
                             type='button'
                         >
-                            <TextButton>Limpar carrinho</TextButton>
+                            <TextButton onClick={limparCarrinho}>Limpar carrinho</TextButton>
                         </Button>
                         <Button
                             type='button'

@@ -62,7 +62,7 @@ export const Menu = () => {
                         dataMenu.map((menu) => (
                             <NavbarLink
                                 key={menu.id}
-                                to='/'
+                                to={`/categoria/${menu.id}`}
                             >
                                 {
                                     menu.categoria
@@ -73,7 +73,7 @@ export const Menu = () => {
 
                 </LeftContainer>
                 <RightContainer>
-                    <NavbarLinkExtend to='/' >
+                    <NavbarLinkExtend to='/carrinho' >
                         Carrinho
                     </NavbarLinkExtend>
                 </RightContainer>
